@@ -1,14 +1,27 @@
-FROM ubuntu:14.04
+FROM ipython/scipystack
 
 MAINTAINER IPython Project <ipython-dev@scipy.org>
 
-ENV DEBIAN_FRONTEND noninteractive
+RUN pip3 install ipython[notebook] --force-reinstall
+RUN pip3 install scikit-image
 
-RUN apt-get update && apt-get upgrade -y 
+EXPOSE 8888
 
-# Python binary dependencies, developer tools
-RUN apt-get install -y -q build-essential make gcc zlib1g-dev git && \
-    apt-get install -y -q python python-dev python-pip python3-dev python3-pip && \
-    apt-get install -y -q libzmq3-dev sqlite3 libsqlite3-dev pandoc libcurl4-openssl-dev nodejs nodejs-legacy npm
+RUN useradd -m -s /bin/bash jovyan
 
-RUN pip install ipython[notebook]
+ADD . /home/jovyan/
+
+RUN chown jovyan:jovyan /home/jovyan -R
+
+USER jovyan
+ENV HOME /home/jovyan
+ENV SHELL /bin/bash
+ENV USER jovyan
+
+WORKDIR /home/jovyan/
+
+RUN find . -name '*.ipynb' -exec ipython trust {} \;
+
+RUN chown -R jovyan:jovyan /home/jovyan
+
+CMD ipython3 notebook --no-browser --port 8888 --ip=0.0.0.0 --NotebookApp.base_url=/$RAND_BASE --NotebookApp.tornado_settings="{'template_path':['/srv/ga/', '/srv/ipython/IPython/html', '/srv/ipython/IPython/html/templates']}"
