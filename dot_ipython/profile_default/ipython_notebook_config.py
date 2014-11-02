@@ -15,7 +15,7 @@ c = get_config()
 # c.NotebookApp.jinja_environment_options = {}
 
 # The IP address the notebook server will listen on.
-# c.NotebookApp.ip = 'localhost'
+c.NotebookApp.ip = '0.0.0.0'
 
 # DEPRECATED use base_url
 # c.NotebookApp.base_project_url = '/'
@@ -48,7 +48,7 @@ c = get_config()
 # c.NotebookApp.log_datefmt = '%Y-%m-%d %H:%M:%S'
 
 # The port the notebook server will listen on.
-# c.NotebookApp.port = 8888
+c.NotebookApp.port = 8888
 
 # Whether to overwrite existing config files when copying
 # c.NotebookApp.overwrite = False
@@ -89,7 +89,7 @@ c = get_config()
 # c.NotebookApp.base_url = '/'
 
 # The directory to use for notebooks and kernels.
-# c.NotebookApp.notebook_dir = u'/Users/kyle6475'
+# c.NotebookApp.notebook_dir = u'/home/jovyan'
 
 # 
 # c.NotebookApp.file_to_run = ''
@@ -517,7 +517,7 @@ c.NotebookApp.webapp_settings = {'X-Frame-Options': 'ALLOW FROM nature.com' }
 #     to the contents of the file.
 
 # Username for the Session. Default is your system username.
-# c.Session.username = u'kyle6475'
+# c.Session.username = u'jovyan'
 
 # The name of the unpacker for unserializing messages. Only used with custom
 # functions for `packer`.
@@ -607,7 +607,7 @@ c.NotebookApp.webapp_settings = {'X-Frame-Options': 'ALLOW FROM nature.com' }
 # MappingKernelManager will inherit config from: MultiKernelManager
 
 # 
-# c.MappingKernelManager.root_dir = u'/Users/kyle6475'
+# c.MappingKernelManager.root_dir = u'/home/jovyan'
 
 # The kernel manager class.  This is configurable to allow subclassing of the
 # KernelManager for customized behavior.
@@ -644,7 +644,7 @@ c.NotebookApp.webapp_settings = {'X-Frame-Options': 'ALLOW FROM nature.com' }
 # c.FileNotebookManager.save_script = False
 
 # 
-# c.FileNotebookManager.notebook_dir = u'/Users/kyle6475'
+# c.FileNotebookManager.notebook_dir = u'/home/jovyan'
 
 #------------------------------------------------------------------------------
 # NotebookNotary configuration

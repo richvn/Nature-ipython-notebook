@@ -3,13 +3,14 @@ FROM ipython/scipystack
 MAINTAINER IPython Project <ipython-dev@scipy.org>
 
 RUN pip3 install ipython[notebook] --force-reinstall
+RUN pip2 install ipython[notebook] --force-reinstall
 RUN pip3 install scikit-image
 
 EXPOSE 8888
 
 RUN useradd -m -s /bin/bash jovyan
 
-ADD . /home/jovyan/
+ADD Nature.ipynb /home/jovyan/
 
 RUN chown jovyan:jovyan /home/jovyan -R
 
@@ -19,6 +20,14 @@ ENV SHELL /bin/bash
 ENV USER jovyan
 
 WORKDIR /home/jovyan/
+
+# Create a profile so we can add our own settings.
+RUN ipython3 profile create
+
+USER root
+ADD dot_ipython /home/jovyan/.ipython
+
+USER jovyan
 
 RUN find . -name '*.ipynb' -exec ipython trust {} \;
 
