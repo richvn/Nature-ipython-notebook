@@ -6,16 +6,13 @@ POOL_SIZE ?= 5
 
 default: images
 
-images: nature-image tmpnb-image routing-image
+images: nature-image tmpnb-image
 
 # Cleanup the server, create the proxy, create tmpnb
 dev: cleanup proxy tmpnb
 
 nature-image: Dockerfile
 	docker build -t jupyter/nature-demo .
-
-routing-image:
-	docker build -t jupyter/nature-demo-routing routing
 
 proxy-image:
 	docker pull jupyter/configurable-http-proxy
