@@ -6,6 +6,7 @@ TODO:
 
 * [X] Create an introductory notebook
 * [X] Create a basic Dockerfile
+* [X] Setup an ipython configuration for users
 * [ ] Create the audio selector/FFT widget
 * [ ] Launch the load balancing node
 * [ ] Write a simple nginx setup
