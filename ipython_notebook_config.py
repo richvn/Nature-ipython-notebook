@@ -15,7 +15,7 @@ c = get_config()
 # c.NotebookApp.jinja_environment_options = {}
 
 # The IP address the notebook server will listen on.
-c.NotebookApp.ip = '0.0.0.0'
+c.NotebookApp.ip = '*'
 
 # DEPRECATED use base_url
 # c.NotebookApp.base_project_url = '/'
@@ -39,7 +39,7 @@ c.NotebookApp.ip = '0.0.0.0'
 # platform dependent and determined by the python standard library `webbrowser`
 # module, unless it is overridden using the --browser (NotebookApp.browser)
 # configuration option.
-# c.NotebookApp.open_browser = True
+c.NotebookApp.open_browser = False
 
 # The notebook manager class to use.
 # c.NotebookApp.notebook_manager_class = 'IPython.html.services.notebooks.filenbmanager.FileNotebookManager'

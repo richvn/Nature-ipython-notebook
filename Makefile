@@ -2,7 +2,7 @@
 CULL_PERIOD ?= 30
 CULL_TIMEOUT ?= 60
 LOGGING ?= info
-POOL_SIZE ?= 64
+POOL_SIZE ?= 5
 
 default: images
 
@@ -11,10 +11,7 @@ images: nature-image tmpnb-image routing-image
 # Cleanup the server, create the proxy, create tmpnb
 dev: cleanup proxy tmpnb
 
-tmpnb-image: Dockerfile
-	docker pull jupyter/tmpnb
-
-nature-image:
+nature-image: Dockerfile
 	docker build -t jupyter/nature-demo .
 
 routing-image:
@@ -26,11 +23,12 @@ proxy-image:
 proxy: proxy-image
 	docker run --net=host -d -e CONFIGPROXY_AUTH_TOKEN=devtoken jupyter/configurable-http-proxy --default-target http://127.0.0.1:9999
 
-tmpnb: tmpnb-image nature-image
+tmpnb: nature-image
 	docker run --net=host -d -e CONFIGPROXY_AUTH_TOKEN=devtoken \
 		-v /var/run/docker.sock:/docker.sock jupyter/tmpnb python orchestrate.py \
 		--image=jupyter/nature-demo --cull_timeout=$(CULL_TIMEOUT) --cull_period=$(CULL_PERIOD) \
-		--logging=$(LOGGING) --pool_size=$(POOL_SIZE) --static-files=/srv/ipython/IPython/html/static/
+		--logging=$(LOGGING) --pool_size=$(POOL_SIZE) --static-files=/srv/ipython/IPython/html/static/ \
+	  --redirect-uri=/notebooks/Nature.ipynb --command="ipython3 notebook --NotebookApp.base_url={base_path}"
 
 cleanup:
 	-docker stop `docker ps -aq`
