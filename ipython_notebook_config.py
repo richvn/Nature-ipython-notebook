@@ -280,7 +280,7 @@ c.NotebookApp.webapp_settings = {'X-Frame-Options': 'ALLOW FROM nature.com' }
 # c.IPKernelApp.ipython_dir = u''
 
 # Configure matplotlib for interactive use with the default matplotlib backend.
-c.IPKernelApp.matplotlib = 'inline'
+#c.IPKernelApp.matplotlib = 'inline'
 
 # ONLY USED ON WINDOWS Interrupt this process when the parent is signaled.
 # c.IPKernelApp.interrupt = 0
